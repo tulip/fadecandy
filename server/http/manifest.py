@@ -11,6 +11,9 @@ manifest = [
     # Javascript and CSS
     ('/js/home.js', None, 'application/javascript'),
     ('/css/narrow.css', None, 'text/css'),
+    ('/css/code39_all.css', None, 'text/css'),
+
+    ('/fonts/LibreBarcode39-Regular.ttf', None, 'application/font-sfnt'),
 
     # Redistributed libraries
     ('/dist/css/bootstrap.min.css', None, 'text/css'),

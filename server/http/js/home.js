@@ -217,6 +217,7 @@ jQuery(function ($) {
 
             // Common text fields
             m.find(".device-serial").text(device.json.serial);
+            m.find(".device-serial-barcode").text("*" + device.json.serial + "*");
 
             return m;
         },
@@ -236,6 +237,10 @@ jQuery(function ($) {
                         Serial number <code class="device-serial"></code>, \
                         firmware version <code class="device-version"></code> \
                     </p> \
+                    <p> \
+                        The devices serial number as a barcode is: <br>\
+                        <div class="device-serial-barcode code_39"></div>\
+                    </p> \
                     <div class="btn-group"> \
                         \
                         <button type="button" class="btn btn-default action-identify">Identify</button> \
@@ -254,6 +259,7 @@ jQuery(function ($) {
                 ');
 
             this.view.find(".device-serial").text(this.json.serial);
+            this.view.find(".device-serial-barcode").text("*" + device.json.serial.toUpperCase() + "*");
             this.view.find(".device-version").text(this.json.version);
 
             this.view.find(".action-identify")
@@ -275,7 +281,7 @@ jQuery(function ($) {
                     ');
 
                     // Animate until the dialog is closed, then go back to the default LED options
-                    var running = true;                          
+                    var running = true;
                     m.on("hide.bs.modal", function(){
                         running = false;
                         device.setStatusLed(null);
@@ -355,7 +361,7 @@ jQuery(function ($) {
 
         connect: function() {
             /*
-             * (Re)connect to the server. This manages our WebSocket's life cycle, and 
+             * (Re)connect to the server. This manages our WebSocket's life cycle, and
              * updates the UI according to our current connection state.
              */
 
@@ -416,7 +422,7 @@ jQuery(function ($) {
             }
 
             if (msg.type == "list_connected_devices" ||         // Initial connection list
-                msg.type == "connected_devices_changed") {      // Hotplug event 
+                msg.type == "connected_devices_changed") {      // Hotplug event
                 ConnectionManager.updateDeviceList(msg.devices);
                 return;
             }

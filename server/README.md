@@ -71,3 +71,8 @@ You can also install on the system without doing it via a Debian package:
 ```bash
 $ make install
 ```
+
+Colophon
+--------
+
+This server includes the Code 39 webfonts from [LibreBarcode](https://github.com/graphicore/librebarcode), SIL Open Font license.

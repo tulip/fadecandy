@@ -1,0 +1,2 @@
+@font-face { font-family: 'code39'; src: url('/fonts/LibreBarcode39-Regular.ttf'); }
+.code_39 { font-family: code39; font-size:65px }
