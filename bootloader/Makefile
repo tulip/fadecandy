@@ -2,11 +2,11 @@
 # Environment setup
 
 # toolchain
-CC = arm-none-eabi-gcc
-CXX = arm-none-eabi-g++
-OBJCOPY = arm-none-eabi-objcopy
-OBJDUMP = arm-none-eabi-objdump
-SIZE = arm-none-eabi-size
+CC = ../../gcc-arm-none-eabi-5_3-2016q1/bin/arm-none-eabi-gcc
+CXX = ../../gcc-arm-none-eabi-5_3-2016q1/bin/arm-none-eabi-g++
+OBJCOPY = ../../gcc-arm-none-eabi-5_3-2016q1/bin/arm-none-eabi-objcopy
+OBJDUMP = ../../gcc-arm-none-eabi-5_3-2016q1/bin/arm-none-eabi-objdump
+SIZE = ../../gcc-arm-none-eabi-5_3-2016q1/bin/arm-none-eabi-size
 
 #######################################################
 
