@@ -40,7 +40,7 @@ CXXFLAGS = -std=gnu++0x -felide-constructors -fno-exceptions -fno-rtti
 CFLAGS =
 
 # linker script
-LDSCRIPT = mk20dx128.ld
+# LDSCRIPT = mk20dx128.ld   # Get the linker script as external parameter
 
 # linker options
 LDFLAGS = -Os -Wl,--gc-sections -mcpu=cortex-m4 -mthumb \
