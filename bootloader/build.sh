@@ -3,17 +3,13 @@
 OUTPUTDIR="../bin-tulip"
 mkdir -p $OUTPUTDIR
 
-make clean
-make LDSCRIPT=mk20dx32.ld all
-cp fc-boot.hex $OUTPUTDIR/fc-boot-32k.hex
-cp fc-boot.bin $OUTPUTDIR/fc-boot-32k.bin
+devices="mk20dx32 mk20dx64 mk20dx128"
 
-make clean
-make LDSCRIPT=mk20dx64.ld all
-cp fc-boot.hex $OUTPUTDIR/fc-boot-64k.hex
-cp fc-boot.bin $OUTPUTDIR/fc-boot-64k.bin
+for device in $devices; do
+    echo "Building for device $device"
 
-make clean
-make LDSCRIPT=mk20dx128.ld all
-cp fc-boot.hex $OUTPUTDIR/fc-boot-128k.hex
-cp fc-boot.bin $OUTPUTDIR/fc-boot-128k.bin
+    make clean
+    make LDSCRIPT=$device.ld all
+    cp fc-boot.hex $OUTPUTDIR/fc-boot-$device.hex
+    cp fc-boot.bin $OUTPUTDIR/fc-boot-$device.bin
+done
