@@ -44,9 +44,6 @@
 extern "C" {
 #endif
 
-// Slower uninitialized data can go into FlexRAM, to save space in faster RAM
-#define FLEXRAM_DATA        __attribute__ ((section(".flexram")))
-
 // Performance-critical code can execute from RAM
 #define EXECUTE_FROM_RAM    __attribute__ ((section(".ramtext")))
 
