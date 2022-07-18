@@ -4,6 +4,7 @@
 *.d
 *.dfu
 *.hex
+*.map
 
 # IDA Pro
 *.id0
@@ -11,3 +12,5 @@
 *.nam
 *.til
 *.idb
+
+.vscode
