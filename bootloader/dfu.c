@@ -38,7 +38,8 @@ static dfu_state_t dfu_state = dfuIDLE;
 static dfu_status_t dfu_status = OK;
 static unsigned dfu_poll_timeout = 1;
 
-static uint8_t dfu_buffer[DFU_TRANSFER_SIZE];
+// Programming buffer in MK20DX128 FlexRAM, where the flash controller can quickly access it.
+static __attribute__ ((section(".flexram"))) uint8_t dfu_buffer[DFU_TRANSFER_SIZE];
 
 static void *memcpy(void *dst, const void *src, size_t cnt) {
     uint8_t *dst8 = dst;
@@ -56,11 +57,11 @@ static bool ftfl_busy()
     return 0 == (FTFL_FSTAT_CCIF & FTFL_FSTAT);
 }
 
-/*static void ftfl_busy_wait()
+static void ftfl_busy_wait()
 {
     // Wait for the flash memory controller to finish any pending operation.
     while (ftfl_busy());
-}*/
+}
 
 static void ftfl_launch_command()
 {
@@ -69,7 +70,7 @@ static void ftfl_launch_command()
     FTFL_FSTAT = FTFL_FSTAT_CCIF;
 }
 
-/*static void ftfl_set_flexram_function(uint8_t control_code)
+static void ftfl_set_flexram_function(uint8_t control_code)
 {
     // Issue a Set FlexRAM Function command. Busy-waits until the command is done.
     
@@ -78,7 +79,7 @@ static void ftfl_launch_command()
     FTFL_FCCOB1 = control_code;
     ftfl_launch_command();
     ftfl_busy_wait();
-}*/
+}
 
 static void ftfl_begin_erase_sector(uint32_t address)
 {
@@ -108,8 +109,7 @@ static uint32_t address_for_block(unsigned blockNum)
 void dfu_init()
 {
     // Use FlexRAM (dfu_buffer) as normal RAM.
-    // There is no flexRAM now
-    // ftfl_set_flexram_function(0xFF);
+    ftfl_set_flexram_function(0xFF);
 }
 
 uint8_t dfu_getstate()
