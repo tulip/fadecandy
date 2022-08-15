@@ -195,24 +195,6 @@ void (* const gVectors[])(void) =
     software_isr,                   // 61 Software interrupt
 };
 
-/*static unsigned ftfl_busy()
-{
-    // Is the flash memory controller busy?
-    return 0 == (FTFL_FSTAT_CCIF & FTFL_FSTAT);
-}
-
-static void ftfl_busy_wait()
-{
-    // Wait for the flash memory controller to finish any pending operation.
-    while (ftfl_busy());
-}
-
-static void ftfl_launch_command()
-{
-    // Begin a flash memory controller command
-    FTFL_FSTAT = FTFL_FSTAT_ACCERR | FTFL_FSTAT_FPVIOL | FTFL_FSTAT_RDCOLERR;
-    FTFL_FSTAT = FTFL_FSTAT_CCIF;
-}*/
 
 void ResetHandler(void)
 {
