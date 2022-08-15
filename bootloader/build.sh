@@ -3,7 +3,7 @@
 OUTPUTDIR="../bin-tulip"
 mkdir -p $OUTPUTDIR
 
-devices="mk20dx32 mk20dx64 mk20dx128"
+devices="mk20dx64 mk20dx128"
 
 for device in $devices; do
     echo "Building for device $device"
