@@ -4,14 +4,14 @@
 # toolchain
 DFU_SUFFIX = dfu-suffix
 DFU_UTIL = dfu-util
-CC = arm-none-eabi-gcc
-CXX = arm-none-eabi-g++
-OBJCOPY = arm-none-eabi-objcopy
-OBJDUMP = arm-none-eabi-objdump
-SIZE = arm-none-eabi-size
+CC = ../../gcc-arm-none-eabi-5_3-2016q1/bin/arm-none-eabi-gcc
+CXX = ../../gcc-arm-none-eabi-5_3-2016q1/bin/arm-none-eabi-g++
+OBJCOPY = ../../gcc-arm-none-eabi-5_3-2016q1/bin/arm-none-eabi-objcopy
+OBJDUMP = ../../gcc-arm-none-eabi-5_3-2016q1/bin/arm-none-eabi-objdump
+SIZE = ../../gcc-arm-none-eabi-5_3-2016q1/bin/arm-none-eabi-size
 
 # Bootloader to include in whole-chip .hex image
-FCBOOT_IMAGE = ../bin/fc-boot-v101.hex
+# FCBOOT_IMAGE = ../bin/fc-boot-v101.hex   # Get the boot image as external parameter
 
 #######################################################
 
@@ -49,7 +49,7 @@ CXXFLAGS = -std=gnu++0x -felide-constructors -fno-exceptions -fno-rtti
 CFLAGS =
 
 # linker script
-LDSCRIPT = fcb-app.ld
+# LDSCRIPT = fcb-app-mk20dx128.ld   # Get the linker script as external parameter
 
 # linker options
 LDFLAGS = -Os -Wl,--gc-sections -mcpu=cortex-m4 -mthumb -nostdlib -T$(LDSCRIPT)
@@ -83,7 +83,7 @@ benchmark: install
 -include $(OBJS:.o=.d)
 
 clean:
-	rm -f *.d *.o $(TARGET).elf $(TARGET).dfu $(APP_HEX)
+	rm -f *.d *.o *.hex $(TARGET).elf $(TARGET).dfu
 
 disassemble: $(TARGET).elf
 	$(OBJDUMP) -d $< | less

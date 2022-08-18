@@ -45,8 +45,6 @@ extern unsigned long _edata;
 extern unsigned long _sbss;
 extern unsigned long _ebss;
 extern unsigned long _estack;
-extern unsigned long _flexram_begin;
-extern unsigned long _flexram_end;
 extern initFunc_t __init_array_start;
 extern initFunc_t __init_array_end;
 
@@ -197,35 +195,6 @@ void (* const gVectors[])(void) =
     software_isr,                   // 61 Software interrupt
 };
 
-static unsigned ftfl_busy()
-{
-    // Is the flash memory controller busy?
-    return 0 == (FTFL_FSTAT_CCIF & FTFL_FSTAT);
-}
-
-static void ftfl_busy_wait()
-{
-    // Wait for the flash memory controller to finish any pending operation.
-    while (ftfl_busy());
-}
-
-static void ftfl_launch_command()
-{
-    // Begin a flash memory controller command
-    FTFL_FSTAT = FTFL_FSTAT_ACCERR | FTFL_FSTAT_FPVIOL | FTFL_FSTAT_RDCOLERR;
-    FTFL_FSTAT = FTFL_FSTAT_CCIF;
-}
-
-static void ftfl_set_flexram_function(uint8_t control_code)
-{
-    // Issue a Set FlexRAM Function command. Busy-waits until the command is done.
-    
-    ftfl_busy_wait();
-    FTFL_FCCOB0 = 0x81;
-    FTFL_FCCOB1 = control_code;
-    ftfl_launch_command();
-    ftfl_busy_wait();
-}
 
 void ResetHandler(void)
 {
@@ -239,11 +208,6 @@ void ResetHandler(void)
     // initialize the SysTick counter
     SYST_RVR = (F_CPU / 1000) - 1;
     SYST_CSR = SYST_CSR_CLKSOURCE | SYST_CSR_TICKINT | SYST_CSR_ENABLE;
-
-    // Use FlexRAM as normal RAM, and zero it
-    ftfl_set_flexram_function(0xFF);
-    dest = &_flexram_begin;
-    while (dest < &_flexram_end) *dest++ = 0;
 
     __enable_irq();
     _init_Teensyduino_internal_();
